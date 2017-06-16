@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -68,7 +69,7 @@ namespace WebBotPrototypes.Controllers
             // Note: The way to get api key:
             // Free: https://www.microsoft.com/cognitive-services/en-us/subscriptions?productId=/products/Bing.Speech.Preview
             // Paid: https://portal.azure.com/#create/Microsoft.CognitiveServices/apitype/Bing.Speech/pricingtier/S0
-            string bingApiKey = System.Configuration.ConfigurationManager.AppSettings["BingSpeechApiKey"];
+            string bingApiKey = ConfigurationManager.AppSettings["BingSpeechApiKey"];
 
             Authentication auth = new Authentication(bingApiKey);
             string accessToken;
@@ -124,7 +125,7 @@ namespace WebBotPrototypes.Controllers
             };
 
             // Reuse Synthesize object to minimize latency
-            await cortana.Speak(CancellationToken.None, 
+            await cortana.Speak(CancellationToken.None,
                 new Synthesize.InputOptions()
                 {
                     RequestUri = new Uri(requestUri),
@@ -132,10 +133,10 @@ namespace WebBotPrototypes.Controllers
                     Text = text,
                     VoiceType = Gender.Female,
                     // Refer to the documentation for complete list of supported locales.
-                    Locale = "de-DE",
+                    Locale = ConfigurationManager.AppSettings["DefaultLocale"], // "de-DE",
                     // You can also customize the output voice. Refer to the documentation to view the different
                     // voices that the TTS service can output.
-                    VoiceName = "Microsoft Server Speech Text to Speech Voice (de-De, Hedda)",
+                    VoiceName = ConfigurationManager.AppSettings["VoiceName"], // "Microsoft Server Speech Text to Speech Voice (de-De, Hedda)",
                     // Service can return audio in different output format.
                     OutputFormat = AudioOutputFormat.Riff16Khz16BitMonoPcm,
                     AuthorizationToken = "Bearer " + accessToken,

@@ -240,6 +240,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\PublishProfiles\basfdemobot - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\voicewebchat - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ChatbotLogic.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
