@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>@System.Configuration.ConfigurationManager.AppSettings["ApplicationTitle"]</h1>
+    <p class="lead">A set of demos to demonstrate to power of Bots.</p>
+</div>
+
+
+@{ 
+    if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["ShowContentOnlyWhenAuthorize"]))
+    {
+        if (!Request.IsAuthenticated)
+        {
+            return;
+        }
+    }
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Standard Web Chat</h2>
+        <p>
+            Standard Chat Control.
+        </p>
+        <p>@Html.ActionLink("Web Control", "Index", "WebChat", null, new { @class="btn btn-default" } )</p>
+        
+        @*<li>@Html.ActionLink("Direct Line", "Index", "DirectLineChat")</li>
+
+        <li>@Html.ActionLink("Voice Chat", "Index", "VoiceChat")</li>
+        <li>@Html.ActionLink("Voice Recognition", "Index", "VoiceChatBasic")</li>
+
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Start &raquo;</a></p>*@
+
+    </div>
+
+    <div class="col-md-4">
+        <h2>Direct Line</h2>
+        <p>Absolute customizable and personizable.</p>
+        <p>@Html.ActionLink("Direct Line", "Index", "DirectLineChat", null, new { @class = "btn btn-default" })</p>
+    </div>
+
+    <div class="col-md-4">
+        <h2>Voice Chat</h2>
+        <p>Chat with your voice, and get answers spoken.</p>
+        <p>@Html.ActionLink("Voice Chat", "Index", "VoiceChat", null, new { @class = "btn btn-default" })</p>
+    </div>
+
+    <div class="col-md-4">
+        <h2>Voice recognition</h2>
+        <p>Detect voices and text.</p>
+        <p>@Html.ActionLink("Voice Recognition", "Index", "VoiceChatBasic", null, new { @class = "btn btn-default" })</p>
+    </div>
+</div>

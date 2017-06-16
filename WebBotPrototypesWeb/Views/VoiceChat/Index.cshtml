@@ -1,0 +1,208 @@
+﻿@model WebBotPrototypes.Models.Chat
+
+@{
+    ViewBag.Title = "Voice Chat";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<hr />
+
+<div id="errorDiv" style="visibility:collapse">
+    <h2>Fehler</h2>
+    <span id="errorMessageSpan"></span>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-lg-10">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <a class="panel-default" data-toggle="collapse" data-parent="#accordion1" href="#collapseChat">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            Voice Chat
+                        </h4>
+                    </div>
+                </a>
+                <div id="collapseChat" class="panel-collapse ">
+                    <div class="panel-body">
+
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label for="userDiv" class="col-md-2 control-label">Benutzer</label>
+                                <span id="userDiv" class="control-label">@((User.Identity.IsAuthenticated == true) ? User.Identity.Name : "[Unknown]")</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="controllerButtons" class="col-md-2 control-label">Steuerung</label>
+                                <div id="controllerButtons">
+                                    <button id="startBtn" disabled="disabled" class="btn btn-danger">Start</button>
+                                    <button id="stopBtn" disabled="disabled" class="btn btn-info">Stop</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="hypothesisDiv" class="col-md-2 control-label">Spracheingabe</label>
+                                <span id="hypothesisDiv" class="text-info"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="statusDiv" class="col-md-2 control-label">Voice Status</label>
+                                <span id="statusDiv" class="text-info"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="myStatusDiv" class="col-md-2 control-label">Backend Status</label>
+                                <span id="myStatusDiv" class="text-info"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="myStatusDiv" class="col-md-2 control-label">Antwort</label>
+                                <span id="chatResponse"></span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<br />
+    <div class="col-lg-10" id="errorAccordionDiv">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <a class="panel-default" data-toggle="collapse" data-parent="#accordion1" href="#collapseError">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            Fehler
+                        </h4>
+                    </div>
+                </a>
+                <div id="collapseError" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>Kein Fehler aufgetreten</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <br />
+    <div class="col-lg-10">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <a class="panel-default" data-toggle="collapse" data-parent="#accordion1" href="#collapseHelp">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            Hinweise
+                        </h4>
+                    </div>
+                </a>
+                <div id="collapseHelp" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>Die Sprachausgabe ist in diesem Prototypen noch nicht optimiert. Die Geschwindigkeit der Antwort kann noch sehr stark optimiert werden. Dies ist aus Zeitgründen noch nicht geschehen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="col-lg-10">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <a class="panel-default" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            Dev-Tools
+                        </h4>
+                    </div>
+                </a>
+                <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label for="key" class="col-md-2 control-label">Subscription</label>
+                                <input class="form-control" id="key" type="text" value="@System.Configuration.ConfigurationManager.AppSettings["BingSpeechApiKey"]">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="languageOptions" class="col-md-2 control-label">Sprache</label>
+                                <select id="languageOptions" class="form-control">
+                                    <option value="zh-CN">Chinese - CN</option>
+                                    <option value="en-GB">English - GB</option>
+                                    <option value="en-US">English - US</option>
+                                    <option value="fr-FR">French - FR</option>
+                                    <option value="de-DE" selected="selected">German - DE</option>
+                                    <option value="it-IT">Italian - IT</option>
+                                    <option value="es-ES">Spanish - ES</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="formatOptions" class="col-md-2 control-label">Format</label>
+                                <select id="formatOptions" class="form-control">
+                                    <option value="Simple" selected="selected">Simple Result</option>
+                                    <option value="Detailed">Detailed Result</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phraseDiv" class="col-md-2 control-label">Result</label>
+                                <textarea id="phraseDiv" style="width:500px;height:200px" class="form-control"></textarea>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+
+    @{
+        if (Model != null)
+        {
+            var chat = (WebBotPrototypes.Models.Chat)Model;
+            <p>adsasdasd</p>
+                                <div>
+                                    <text>@chat.ChatResponse</text>
+                                    <br />
+                                    @chat.ChatMessage
+                                    <br /><p>tada</p>
+                                </div>
+        }
+        else
+        {
+
+        }
+    }
+
+</div>
+
+<!--The SDK has a dependency on requirejs (http://requirejs.org/). -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.min.js"></script>
+<script>
+    // Special handling to let the sample work when loaded directly from file system.
+    if (window.location.protocol == "file:") {
+        document.write('\<script src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.min.js">\<\/script>');
+    }
+</script>
+
+
+<!--SDK REFERENCE -->
+<script src="../../scripts\speech.browser.sdk-min.js"></script>
+
+<script src="../../scripts\ChatbotLogic.js"></script>
+

@@ -1,0 +1,29 @@
+﻿
+@section Styles{
+<link href="https://unpkg.com/botframework-webchat/botchat.css" rel="stylesheet" />
+
+<script src="https://unpkg.com/botframework-webchat/botchat.js"></script>
+
+}
+
+@{
+    ViewBag.Title = "Index";
+    var botId = System.Configuration.ConfigurationManager.AppSettings["BotId"];
+    var botKey = System.Configuration.ConfigurationManager.AppSettings["BotKey"];
+    var userId = System.Configuration.ConfigurationManager.AppSettings["UserId"];
+    var directLineSecret = System.Configuration.ConfigurationManager.AppSettings["DirectLineSecret"];
+}
+
+<h2>Web Chat Beta</h2>
+
+<div id="bot" style="width: 400px; height:300px; background-color:lawngreen"></div>
+
+<script>
+      BotChat.App({
+        directLine: { secret: '@directLineSecret' },
+        user: { id: '@userId' },
+        bot: { id: '@botId' },
+        resize: 'detect'
+      }, document.getElementById("bot"));
+</script>
+

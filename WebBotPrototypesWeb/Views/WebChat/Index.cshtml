@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Web Chat ";
+    var botId = System.Configuration.ConfigurationManager.AppSettings["BotId"];
+    var botKey = System.Configuration.ConfigurationManager.AppSettings["BotKey"];
+    var url = $"https://webchat.botframework.com/embed/{botId}?s={botKey}";
+}
+
+<h2>Web Chat</h2>
+
+
+<iframe style="position: relative; height:400px; width:100%" src='@url'></iframe>
