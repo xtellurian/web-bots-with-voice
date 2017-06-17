@@ -146,9 +146,8 @@ namespace WebBotPrototypes.Logic
 
             string[] t = new string[]
             {
-                "Das habe ich leider nicht verstanden. Vielleicht probierst du es mit einer anderen Frage.",
-                //"Diese Frage kann ich leider nicht beantworten.",
-                //"Das weiß ich leider nicht."
+                ConfigurationManager.AppSettings["DidNotUnderstand"],
+                //"Das habe ich leider nicht verstanden. Vielleicht probierst du es mit einer anderen Frage.",
             };
 
             int rndNo = rnd.Next(t.Length);
